@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
   
-  export default function SimpleSelect(props) {
+  export default function SimpleSelect() {
     const classes = useStyles();
-    const [view, setView] = React.useState('');
+//     const [setView] = React.useState('');
 
-  const handleChange = (event) => {
-    setView(event.target.value);
-  };
+//   const handleChange = (event) => {
+//     setView(event.target.value);
+//   };
   
     return (
       <div>
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            value={view}
             onChange={handleChange}
             label="All"
           >

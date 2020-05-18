@@ -7,7 +7,8 @@ class App extends Component {
 
   state = {
     species : [],
-    view : "all"
+    view : "all",
+    startIndex : 0
   }
 
   componentDidMount() {
@@ -16,6 +17,19 @@ class App extends Component {
     .then(data => {this.setState({ species: data })})
   }
 
+  addIndex = () => {
+    let newIndex = this.state.startIndex + 6
+    if( newIndex >= this.state.species.length ){
+      newIndex = 0
+    }
+    this.setState({ startIndex: newIndex })
+  }
+
+  subtractIndex = () => {
+    let newIndex = this.state.startIndex - 6
+    
+    this.setState({ startIndex: newIndex })
+  }
 
   setView = (type) => {
     this.setState({view : type})
@@ -27,12 +41,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.view)
+    let displayedSpecies = this.state.species.slice(this.state.startIndex, this.state.startIndex + 6)
     return (
       <div>
         <NavBar />
-        <About setView={this.setView} handleSelectChange={this.handleSelectChange} view={this.state.view}/>
-        <GridView species={this.state.species}/>
+        <About selectChange={this.handleSelectChange}/>
+        <GridView species={displayedSpecies} addIndex={this.addIndex} subtractIndex={this.subtractIndex} index={this.state.startIndex}/>
       </div>
     )
   }

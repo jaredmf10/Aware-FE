@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,6 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Species = (props) => {
+
+  const parseName = name => {
+    let arr = name.split(" ")
+    return arr.join("_")
+}
     
         const useStyles = makeStyles({
             root: {
@@ -25,7 +30,6 @@ const Species = (props) => {
         <CardMedia
           className={classes.media}
           image={props.species.image}
-          title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -34,7 +38,7 @@ const Species = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" href={`/${parseName(props.species.name)}`}>
           Learn More
         </Button>
       </CardActions>
