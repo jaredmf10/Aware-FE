@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Species = (props) => {
-
+console.log(props)
   const parseName = name => {
     let arr = name.split(" ")
     return arr.join("_")

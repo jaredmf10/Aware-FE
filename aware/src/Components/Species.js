@@ -30,6 +30,24 @@ class Species extends Component {
         return array[0]
     }
 
+    handlePost = (event) => {
+        const currentSpecies = this.state.species.filter(species => "/" + (this.parseName(species.name)) === window.location.pathname)
+        const species = currentSpecies[0]
+        event.preventDefault()
+        fetch('http://localhost:4000/follows',{
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json',
+            Accept : 'application/json'
+          },
+          body: JSON.stringify({
+            species_id: species.id, 
+            user_id: 2})
+        })
+        .then(res => res.json())
+        .then(window.alert("Added!"))
+      }
+
     render() {
         const currentSpecies = this.state.species.filter(species => "/" + (this.parseName(species.name)) === window.location.pathname)
         const species = currentSpecies[0]
@@ -58,7 +76,7 @@ class Species extends Component {
                                 System: {species.system}
                             </Typography>
                             <IconButton >
-                                <BookmarkBorderIcon fontSize="large" />
+                                <BookmarkBorderIcon fontSize="large" onClick={this.handlePost}/>
                             </IconButton>
                         </Card>
                     </Grid>
