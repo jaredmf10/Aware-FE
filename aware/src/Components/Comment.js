@@ -8,6 +8,7 @@ render() {
     <div>
         <h3>{this.props.name}</h3>
         <p>{this.props.content}</p> 
+        <hr></hr>
     </div>
     );
 }

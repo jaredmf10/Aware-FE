@@ -7,8 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
-const Species = (props) => {
+const FollowedSpeciesCard = (props) => {
 // console.log(props)
   const parseName = name => {
     let arr = name.split(" ")
@@ -41,9 +43,12 @@ const Species = (props) => {
         <Button size="small" color="primary" href={`/${parseName(props.species.name)}`}>
           Learn More
         </Button>
+        <IconButton aria-label="delete" onClick={()=>props.delete(props.follow.id)}>
+                <BookmarkIcon />
+            </IconButton>
       </CardActions>
     </Card>
   );
 }
 
-export default Species
+export default FollowedSpeciesCard

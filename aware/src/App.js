@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
 import GridView from './Containers/GridView'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class App extends Component {
 
@@ -27,7 +31,6 @@ class App extends Component {
 
   subtractIndex = () => {
     let newIndex = this.state.startIndex - 6
-    
     this.setState({ startIndex: newIndex })
   }
 
@@ -38,15 +41,35 @@ class App extends Component {
 
   handleSelectChange = (event) => {
     this.setView(event.target.value);
+    this.setState({startIndex : 0})
   }
 
   render() {
+    // console.log(this.state.startIndex)
+    let { view } = this.state;
     let displayedSpecies = this.state.species.slice(this.state.startIndex, this.state.startIndex + 6)
     return (
       <div>
         <NavBar />
-        <About selectChange={this.handleSelectChange}/>
-        <GridView species={displayedSpecies} addIndex={this.addIndex} subtractIndex={this.subtractIndex} index={this.state.startIndex}/>
+        <About />
+        <FormControl variant="outlined" >
+          <InputLabel id="demo-simple-select-outlined-label">System</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            onChange={this.handleSelectChange}
+            label="All"
+          >
+            <MenuItem value={"all"}>
+              <em>All</em>
+            </MenuItem>
+            <MenuItem value={"marine"}>Marine</MenuItem>
+            <MenuItem value={"terrestrial"}>Terrestrial</MenuItem>
+          </Select>
+        </FormControl>
+        {view === "all" && <GridView species={displayedSpecies} addIndex={this.addIndex} subtractIndex={this.subtractIndex} index={this.state.startIndex}/>}
+        {view === "marine" && <GridView species={displayedSpecies.filter(species => species.system === 'Marine')} addIndex={this.addIndex} subtractIndex={this.subtractIndex} index={this.state.startIndex}/>}
+        {view === "terrestrial" && <GridView species={displayedSpecies.filter(species => species.system === 'Terrestrial')} addIndex={this.addIndex} subtractIndex={this.subtractIndex} index={this.state.startIndex}/>}
       </div>
     )
   }
