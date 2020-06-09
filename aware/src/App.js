@@ -41,11 +41,11 @@ class App extends Component {
 
   handleSelectChange = (event) => {
     this.setView(event.target.value);
-    this.setState({startIndex : 0})
+    // this.setState({startIndex : 0})
   }
 
   render() {
-    // console.log(this.state.startIndex)
+    console.log(this.state.startIndex)
     let { view } = this.state;
     let displayedSpecies = this.state.species.slice(this.state.startIndex, this.state.startIndex + 6)
     return (
@@ -59,6 +59,7 @@ class App extends Component {
             id="demo-simple-select-outlined"
             onChange={this.handleSelectChange}
             label="All"
+            
           >
             <MenuItem value={"all"}>
               <em>All</em>

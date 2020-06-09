@@ -74,12 +74,16 @@ class Profile extends Component {
                 ) : <Typography align="center" variant="h4" gutterBottom>
                 No Follows yet!
                 </Typography>}
-                <div>
+                <div> <hr></hr>
         <Grid container spacing={0} direction="row" justify="space-around" alignItems="center">
         <Grid sm ={4}>
         <form className="new-entry-form" id="form" onSubmit={this.handlePost}>
-        <label for="cars">Choose a species:</label>
+        <Typography  variant="h5" gutterBottom>
+                Jared's Journal
+                </Typography> <br></br>
+        {/* <label for="species">Choose a species:</label> */}
             <select id="species" name="species_id" onChange={this.handleFormChange}>
+            <option value={50}>Select a followed species</option>
                 {this.state.follows.map(follow => <option key={follow.species_id}value={follow.species_id}>{follow.species.name}</option>)}
             </select> <br></br>
         <input type="hidden" name="date" id="date" value={Date.now()}></input>

@@ -14,8 +14,12 @@ class Entry extends Component {
         return (
             <div>
                 <h3>{this.props.name}</h3>
-                <h4>Date: {this.parseDate(this.props.entry.updated_at)}</h4>
+                {this.props.entry.created_at ? (
+                    <>
+                <h4>Date: {this.parseDate(this.props.entry.created_at)}</h4>
                 <h4>Species: {this.props.entry.species.name}</h4>
+                </>
+                ) : null}
                 <p>{this.props.content}</p> 
                 <IconButton aria-label="edit" >
                 <EditIcon />

@@ -7,17 +7,23 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import CommentContainer from './CommentContainer'
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 class Species extends Component {
 
     state = {
-        species : []
+        species : [],
+        follows : []
     }
     
     componentDidMount() {
     fetch('http://localhost:4000/species')
     .then(res => res.json())
     .then(data => {this.setState({ species: data })})
+
+    fetch('http://localhost:4000/follows')
+    .then(res => res.json())
+    .then(data => {this.setState({ follows: data })})
     }
 
     parseName = name => {
@@ -56,7 +62,7 @@ class Species extends Component {
                 <NavBar />
                 {species ?
                 <div>
-                <Grid container spacing={0} direction="row" justify="space-around" alignItems="center">
+                <Grid container spacing={0} direction="row" justify='space-around' alignItems="center" alignContent= "space-around" >
                     <Grid >
                         <Card >
                             <CardContent align="center">
@@ -75,9 +81,14 @@ class Species extends Component {
                             <Typography align="center" >
                                 System: {species.system}
                             </Typography>
+                            {currentSpecies[0] && this.state.follows.some((follow) => follow.species_id === currentSpecies[0].id) ? (
                             <IconButton >
-                                <BookmarkBorderIcon fontSize="large" onClick={this.handlePost}/>
-                            </IconButton>
+                            <BookmarkIcon fontSize="large" />
+                            </IconButton>)
+                            : <IconButton onClick={this.handlePost}>
+                                <BookmarkBorderIcon fontSize="large" />
+                                </IconButton>
+                            }
                         </Card>
                     </Grid>
                     <Grid xs={3}>
@@ -116,7 +127,7 @@ class Species extends Component {
                         <Grid xs={5}>
                         <Card >
                             <CardContent align="center">
-                                <img src="https://f002.backblazeb2.com/file/cached-individual-maps/T39378A2913541.jpg?Authorization=3_20200518162315_53977316a3663aae9464738f_3dfe013c1e092dcdf1e12b9d0e2274b74c0efa39_002_20200525162315_0018_dnld" alt="Smiley face" height="600" width="450"></img> 
+                                <img src={species.distribution_map} alt="Smiley face" height="600" width="450"></img> 
                             </CardContent>
                         </Card>
                     </Grid>
